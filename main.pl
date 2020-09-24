@@ -1,10 +1,8 @@
-:- set_prolog_stack(global, limit(100 000 000 000)).
-:- set_prolog_stack(local, limit(100 000 000 000)).
-:- use_module('./fastcsv.pl').
+:- use_module(fastcsv, []).
 :- initialization(main).
 
 main :-
-  profile(fastcsv_read_file("data.csv", Rows, [strip(true)])),
+  fastcsv:dict_reader("data.csv", Rows, [strip(true)]),
   findall(Row, (member(Row, Rows), filter(Row)), Results),
   length(Results, ResultsSize),
   length(Rows, TotalSize),
@@ -12,6 +10,6 @@ main :-
   halt.
 
 filter(Record) :-
-  Record.'Name' = "Joseph",
-  number_codes(Age, Record.'Age'),
+  Record.'Name' = "Joseph", !,
+  number_codes(Age, Record.'Age'), !,
   Age < 40.
