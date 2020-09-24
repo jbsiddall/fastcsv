@@ -35,3 +35,10 @@ parse_row_into_record(Header, Values, Record) :-
 parse_row_into_record([], [], Record, Record).
 parse_row_into_record([Key|Header], [Value|Values], Record, WorkingRecord) :-
   parse_row_into_record(Header, Values, Record, WorkingRecord.put(Key, Value)).
+
+:- begin_tests(fastcsv).
+
+test(fastcsv) :-
+  1 = 2.
+
+:- end_tests(fastcsv).
